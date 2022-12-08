@@ -1,0 +1,42 @@
+% implement standard ASP semantics.
+
+conjunction(B) :- literal_tuple(B),
+        hold(L) : literal_tuple(B, L), L > 0;
+    not hold(L) : literal_tuple(B,-L), L > 0.
+
+body(normal(B)) :- rule(_,normal(B)), conjunction(B).
+body(sum(B,G))  :- rule(_,sum(B,G)),
+    #sum { W,L :     hold(L), weighted_literal_tuple(B, L,W), L > 0 ;
+           W,L : not hold(L), weighted_literal_tuple(B,-L,W), L > 0 } >= G.
+
+  hold(A) : atom_tuple(H,A)   :- rule(disjunction(H),B), body(B).
+{ hold(A) : atom_tuple(H,A) } :- rule(     choice(H),B), body(B).
+
+
+%
+% Connect true/2 with hold/2
+%
+
+true(O) :- hold(L), output(O,B), literal_tuple(B,L).
+hold(L) :- true(O), output(O,B), literal_tuple(B,L).
+
+%
+% the next rule is also needed to represent the facts
+%  O.
+% of the input logic program, for which clingo generates
+%  output(O,0).
+% and no literal_tuple of the form literal_tuple(0,L)
+%
+% 
+true(O) :- output(O,B), not literal_tuple(B,_).
+
+%
+% Implement operators
+%
+
+% formulas
+formula(O) :- output(O,_).
+formula(F):- formula(obligatory(F)).
+formula(F):- formula(forbidden(F)).
+
+:- not true(F), not true(-F), formula(obligatory(F)), formula(forbidden(F)).
