@@ -17,7 +17,7 @@ body(sum(B,G))  :- rule(_,sum(B,G)),
 % Connect true/1 with hold/1
 % true(O) is derived if atom O is assigned true.
 % Similar to hold(L), except that hold ranges over integer representation
-% of literals, and does not include facts of the object program.
+% of literals.
 %
 
 true(O) :- hold(L), output(O,B), literal_tuple(B,L).
