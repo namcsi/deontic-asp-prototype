@@ -1,5 +1,0 @@
-forbidden(fence) :- not -forbidden(fence).
-obligatory(white) :- fence, forbidden(fence).
--forbidden(fence) :- sea.
-fence.
-
