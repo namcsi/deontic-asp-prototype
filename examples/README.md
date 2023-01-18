@@ -1,7 +1,8 @@
 # Examples
 
-Here we gather some more well known example theories from the deontic
-logic literature, encoded using our deontic input language.
+Here we gather some example object programs, including more well
+known example/paradoxes from the deontic logic literature, encoded
+using our deontic input language.
 
 To run one such example, use the something similar to the following
 command:

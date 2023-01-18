@@ -1,6 +1,6 @@
-forbidden(fence) :- not -forbidden(fence).
-obligatory(white) :- fence, forbidden(fence).
--forbidden(fence) :- sea.
+fb(fence) :- not -fb(fence).
+ob(white) :- fence, fb(fence).
+-fb(fence) :- sea.
 fence.
 
 % what happens when we are by the sea?

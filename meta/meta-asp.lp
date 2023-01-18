@@ -14,7 +14,10 @@ body(sum(B,G))  :- rule(_,sum(B,G)),
 
 
 %
-% Connect true/2 with hold/2
+% Connect true/1 with hold/1
+% true(O) is derived if atom O is assigned true.
+% Similar to hold(L), except that hold ranges over integer representation
+% of literals, and does not include facts of the object program.
 %
 
 true(O) :- hold(L), output(O,B), literal_tuple(B,L).
@@ -30,13 +33,5 @@ hold(L) :- true(O), output(O,B), literal_tuple(B,L).
 % 
 true(O) :- output(O,B), not literal_tuple(B,_).
 
-%
-% Implement operators
-%
-
-% formulas
-formula(O) :- output(O,_).
-formula(F):- formula(obligatory(F)).
-formula(F):- formula(forbidden(F)).
-
-:- not true(F), not true(-F), formula(obligatory(F)), formula(forbidden(F)).
+#show.
+#show T : output(T,B), true(T). 
